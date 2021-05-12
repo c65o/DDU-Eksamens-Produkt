@@ -25,7 +25,7 @@ class Platform {
     } else return false;
   }
   void update() {
-    fill(81, 33, 102);
+    fill(33, 86, 102);
     rect(x, y, w, h);
     rect(x, y, w, h);
   }

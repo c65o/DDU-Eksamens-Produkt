@@ -3,6 +3,7 @@ class Player {
   int playerY=1100;    
   int playerWidth=120;
   int playerHeight=120;
+  int gravity=10;
   boolean up = false;
   boolean right = false;
   boolean left = false;
@@ -14,16 +15,16 @@ class Player {
     fill(218, 61, 176);
     rect(playerX, playerY, 120, 120);
     if (playerY<1100) {
-      playerY=playerY+20;
+      playerY=playerY+gravity;
     }
-    
+
     //Falder pænere ned efter hop
     if (up && right) {
       playerX=playerX+10;
       playerY=playerY-30;
     }
   }
-  
+
   void Pressed() {
     if (keyCode== LEFT) {
       playerX=playerX-20;
@@ -34,15 +35,15 @@ class Player {
       playerX=playerX+10;
       right=true;
     }
-    if (playerY>=1100) {
-      if (keyCode== UP) {
-        playerY=playerY-350;
-        up=true;
-      }
+
+    if (keyCode== UP) {
+      println("YUP");
+      playerY=playerY-350;
+      up=true;
     }
   }
 
-  
+
   void Released() {
     if (keyCode== LEFT) {
       left=false;
@@ -54,13 +55,15 @@ class Player {
       up=false;
     }
   }
-  
-  void Collision(Platform p){
-    if (playerX>p.x && playerX<p.x+p.w && playerY>p.y && playerY<p.y+p.h){
-      playerY=(int)p.y;
+
+  void Collision(Platform p) {
+    if (playerX>p.x && playerX<p.x+p.w && playerY+ playerHeight>=p.y && playerY<=p.y+p.h) {
+      gravity=0;
+      playerY=(int)p.y-playerHeight;
+      println("x: " + playerX + "y: " + playerY);
+    } else {
+      gravity=10;
     }
-    
-    
   }
 
   //"Play Again" knap kan trykkes og spillet genstarter
@@ -82,6 +85,5 @@ class Player {
         println("clicked");
       }
     }
-   
   }
 }

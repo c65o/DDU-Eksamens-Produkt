@@ -64,11 +64,6 @@ void draw() {
   }
   fjendeX3=fjendeX3-2;
 
-  
-
-
-
-
   //if (playerX==fjendeX&&playerY==fjendeY) {
   //println("YUP");
   // }
