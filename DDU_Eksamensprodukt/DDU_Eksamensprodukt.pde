@@ -1,21 +1,13 @@
 Platform P1= new Platform(400, 950, 270, 50, "P1");
 Platform P2=new Platform(1350, 950, 270, 50, "P2");
+Player player = new Player();
 
-
-
-int playerX;         //Spiller
-int playerY=1100;    //Spiller
-int playerWidth=120;
-int playerHeight=120;
 int fjendeX=1800;    //Fjende
 int fjendeY=1100;    //Fjende
 int fjendeX2=1900;   //Fjende 2
 int fjendeY2=1100;   //Fjende 2
 int fjendeX3=1700;   //Fjende 3
 int fjendeY3=1100;   //Fjende 3
-boolean up = false;
-boolean right = false;
-boolean left = false;
 boolean start = false;
 float bX=800;        //"Play Again" knap
 float bY=900;        //'b' = button 
@@ -30,13 +22,12 @@ void setup() {
 //Tegner baggrund, Spiller og Fjende
 void draw() {
   background(255, 244, 231);
-  fill(218, 61, 176);
-  rect(playerX, playerY, 120, 120);
+  player.update();
   P1.update();
   P2.update();
-  if (playerY<1100) {
-    playerY=playerY+20;
-  }
+  player.Collision(P1);
+  player.Collision(P2);
+
   //Fjende 1
   fill(78, 75, 208);
   ellipse(fjendeX, fjendeY, 120, 120);
@@ -49,7 +40,7 @@ void draw() {
   }
   fjendeX=fjendeX-2;
 
-  //Fjende 2l
+  //Fjende 2
   fill(237, 115, 33);
   ellipse(fjendeX2, fjendeY2, 120, 120);
   ellipseMode(CORNER);
@@ -73,11 +64,8 @@ void draw() {
   }
   fjendeX3=fjendeX3-2;
 
-  //Falder pænere ned efter hop
-  if (up && right) {
-    playerX=playerX+10;
-    playerY=playerY-30;
-  }
+  
+
 
 
 
@@ -85,8 +73,8 @@ void draw() {
   //println("YUP");
   // }
 
-  //kollision mellem Player og Fjende/Forhindring 1
-  if (abs(playerX-fjendeX)<50 && (abs(playerY-fjendeY)<50)) {
+  //kollision mellem Player og Forhindring 1
+  if (abs(player.playerX-fjendeX)<50 && (abs(player.playerY-fjendeY)<50)) {
     loop();
     fill(235, 64, 52);
     textSize(200);
@@ -100,8 +88,8 @@ void draw() {
     noLoop();
   }
 
-  //kollision mellem Player og Fjende/Forhindring 2
-  if (abs(playerX-fjendeX2)<50 && (abs(playerY-fjendeY2)<50)) {
+  //kollision mellem Player og Forhindring 2
+  if (abs(player.playerX-fjendeX2)<50 && (abs(player.playerY-fjendeY2)<50)) {
     loop();
     fill(235, 64, 52);
     textSize(200);
@@ -114,8 +102,8 @@ void draw() {
     text("Play Again", 805, 980);
     noLoop();
   }
-  //kollision mellem Player og Fjende/Forhindring 3
-  if (abs(playerX-fjendeX3)<50 && (abs(playerY-fjendeY3)<50)) {
+  //kollision mellem Player og Forhindring 3
+  if (abs(player.playerX-fjendeX3)<50 && (abs(player.playerY-fjendeY3)<50)) {
     loop();
     fill(235, 64, 52);
     textSize(200);
@@ -132,53 +120,15 @@ void draw() {
 
 //Tjekker hvilke taster, der bliver trykket og angiver, hvad der skal ske når de bliver trykket
 void keyPressed() {
-  if (keyCode== LEFT) {
-    playerX=playerX-20;
-    left=true;
-  }
-
-  if (keyCode== RIGHT) {
-    playerX=playerX+10;
-    right=true;
-  }
-  if (playerY>=1100) {
-    if (keyCode== UP) {
-      playerY=playerY-350;
-      up=true;
-    }
-  }
+  player.Pressed();
 }
 
 //
 void keyReleased() {
-  if (keyCode== LEFT) {
-    left=false;
-  }
-  if (keyCode== RIGHT) {
-    right=false;
-  }
-  if (keyCode== UP) {
-    up=false;
-  }
+  player.Released();
 }
 
 //"Play Again" knap kan trykkes og spillet genstarter
 void mouseClicked() {
-  //println("x="+mouseX + "y" + mouseY);
-  if (mouseX>800 && mouseX<1100 && mouseY>900 && mouseY<1010) {
-    if (start) {
-      noLoop();
-    } else {
-      loop();
-      playerX=0;
-      playerY=1100;
-      fjendeX=1800;
-      fjendeY=1100;
-      fjendeX2=1900;
-      fjendeY2=1100;
-      fjendeX3=1700;
-      fjendeY3=1100;
-      println("clicked");
-    }
-  }
+  player.Clicked();
 }
