@@ -8,8 +8,6 @@ class Player {
   boolean right = false;
   boolean left = false;
 
-  Player() {
-  }
 
   void update() {
     fill(218, 61, 176);
@@ -76,12 +74,12 @@ class Player {
         loop();
         playerX=0;
         playerY=1100;
-        fjendeX=1800;
-        fjendeY=1100;
-        fjendeX2=1900;
-        fjendeY2=1100;
-        fjendeX3=1700;
-        fjendeY3=1100;
+        fjende.fjendeX=1800;
+        fjende.fjendeY=1100;
+        fjende.fjendeX2=1900;
+        fjende.fjendeY2=1100;
+        fjende.fjendeX3=1700;
+        fjende.fjendeY3=1100;
         println("clicked");
       }
     }
