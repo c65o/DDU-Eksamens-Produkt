@@ -10,8 +10,9 @@ class Player {
 
 
   void update() {
-    fill(218, 61, 176);
-    rect(playerX, playerY, 120, 120);
+    image(spiller, playerX, playerY);
+    //fill(218, 61, 176);
+    //rect(playerX, playerY, 120, 120);
     if (playerY<1100) {
       playerY=playerY+gravity;
     }

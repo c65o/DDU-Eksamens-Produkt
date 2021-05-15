@@ -7,25 +7,32 @@ float bX=800;        //"Play Again" knap
 float bY=900;        //'b' = button 
 float bW=300;        //...
 float bH=120;        //...
+PImage baggrund;
+PImage spiller;
+PImage enemy;
+PImage enemy2;
+PImage enemy3;
 
 
 void setup() {
   size(2000, 1500);
+  baggrund = loadImage("baggrund.png");
+  spiller = loadImage("spiller.png");
+  enemy = loadImage("enemy.png");
+  enemy2 = loadImage("enemy2.png");
+  enemy3 = loadImage("enemy3.png");
 }
 
 //Tegner baggrund, Spiller og Fjende
 void draw() {
+  background(baggrund);
   println(frameCount);
-
-  background(255, 244, 231);
   player.update();
   fjende.update();
   P1.update();
   P2.update();
   player.Collision(P1);
   player.Collision(P2);
-
-
 
   //if (playerX==fjendeX&&playerY==fjendeY) {
   //println("YUP");
